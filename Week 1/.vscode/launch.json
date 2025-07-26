@@ -1,0 +1,28 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "simple_login_ui",
+      "cwd": "simple_login_ui",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "simple_login_ui (profile mode)",
+      "cwd": "simple_login_ui",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "simple_login_ui (release mode)",
+      "cwd": "simple_login_ui",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    }
+  ]
+}
