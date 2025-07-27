@@ -26,3 +26,4 @@ flutter:
     - family: DigitalNumbers
       fonts:
         - asset: assets/fonts/DigitalNumbers.ttf
+        - asset: assets/counter_app_screen.PNG
