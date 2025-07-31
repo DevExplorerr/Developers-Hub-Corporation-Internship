@@ -7,46 +7,67 @@ This repo documents weekly Flutter development tasks, concepts, and projects tha
 
 ## Weekly Progress
 
-| Week     | Topic               | Description                                      |
-|----------|---------------------|--------------------------------------------------|
-| ✅ Week 1 | Simple Login UI     | A basic login screen with form validation        |
-| ✅ Week 2 | Tally Counter App   | Counter app using `setState` and `SharedPreferences` |
-| ⏳ Week 3 | _Coming Soon_       | _To be added..._                                 |
+| Week     | Topic                     | Description                                          |
+|----------|---------------------------|------------------------------------------------------|
+| ✅ Week 1 | Simple Login UI           | A basic login screen with form validation            |
+| ✅ Week 2 | Tally Counter & Todo List | Counter and task manager apps with local storage     |
+| ⏳ Week 3 | _Coming Soon_             | _To be added..._                                     |
 
 ---
 
 ## ✅ Week 1 - Simple Login UI
-A basic Flutter app that implements a simple login screen using form validation.
+
+A basic Flutter app that implements a simple login screen with:
+
+- Form validation
+- Custom fonts and colors
+- Clean and minimal design
 
 ---
 
 ## ✅ Week 2 - Tally Counter App
-A digital-style counter app demonstrating:
 
-- `setState()` for managing UI state
-- `SharedPreferences` to persist counter value on app restart
-- Responsive UI with `flutter_screenutil`
-- Digital font style for display
+A digital counter app demonstrating:
+
+- `setState()` for state updates  
+- Persistent storage using `SharedPreferences`  
+- Responsive layout with `flutter_screenutil`  
+- Digital-style font for counter display  
+
+---
+
+## ✅ Week 2 - Todo List App
+
+A task manager app that includes:
+
+- Add, complete, and view tasks  
+- Saves tasks using `SharedPreferences`  
+- Each task shows a timestamp  
+- Responsive layout with `flutter_screenutil`  
+- Clean design using `GoogleFonts`  
 
 ---
 
 ## Tech Stack
 
-- Flutter
-- Dart
-- SharedPreferences
-- Flutter ScreenUtil
+- Flutter & Dart  
+- SharedPreferences  
+- flutter_screenutil  
+- google_fonts  
+- intl (for date formatting)
 
 ---
 
 ## Notes
 
-- This repository tracks my weekly growth during the internship.
-- Projects are kept clean and modular for easy understanding.
+- Each week's project is modular and easy to understand  
+- Focus on UI/UX, Flutter fundamentals, and clean code  
+- Documenting weekly progress during the internship  
 
 ---
 
 ## Connect
 
 Follow my Flutter journey or suggest improvements:  
-GitHub: [DevExplorerr](https://github.com/DevExplorerr)
+GitHub: [DevExplorerr](https://github.com/DevExplorerr)  
+LinkedIn: [Muhammad Saad Jamal](https://www.linkedin.com/in/muhammadsaadjamal/)
