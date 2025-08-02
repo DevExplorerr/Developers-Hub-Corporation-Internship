@@ -19,9 +19,9 @@ This repo documents weekly Flutter development tasks, concepts, and projects tha
 
 A basic Flutter app that implements a simple login screen with:
 
-- Form validation
-- Custom fonts and colors
-- Clean and minimal design
+- Form validation  
+- Custom fonts and colors  
+- Clean and minimal design  
 
 ---
 
@@ -58,7 +58,10 @@ An advanced task manager that uses Firebase to sync tasks per user. Features inc
 - Add, update, delete, and search tasks  
 - Real-time UI updates  
 - Responsive layout with `flutter_screenutil`  
-- Polished UI using `GoogleFonts`
+- Polished UI using `GoogleFonts`  
+
+**Demo Video Link:**  
+[Google Drive - Task Management App Demo](https://drive.google.com/drive/folders/1EbGtf98xY0Rfiol3x5hXX041K6H6ODle?usp=sharing)
 
 ---
 
