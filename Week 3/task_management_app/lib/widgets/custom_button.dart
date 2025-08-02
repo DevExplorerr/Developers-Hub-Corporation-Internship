@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:task_management_app/colors.dart';
+import 'package:task_management_app/widgets/colors.dart';
 
-// ignore: must_be_immutable
 class CustomButton extends StatefulWidget {
   final Function(String) onAddTask;
   const CustomButton({
@@ -78,8 +77,7 @@ class _CustomButtonState extends State<CustomButton> {
             decoration: InputDecoration(
               hintText: 'Add task here...',
               hintStyle: GoogleFonts.podkova(
-                color: 
-                inputHintTextColor,
+                color: inputHintTextColor,
                 fontSize: 17.sp,
               ),
               enabledBorder: OutlineInputBorder(

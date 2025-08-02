@@ -1,9 +1,14 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:task_management_app/auth/auth_service.dart';
 import 'package:task_management_app/auth/signup_screen.dart';
-import 'package:task_management_app/colors.dart';
-import 'package:task_management_app/home_screen.dart';
+import 'package:task_management_app/widgets/colors.dart';
+import 'package:task_management_app/global/toast.dart';
+import 'package:task_management_app/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,12 +18,47 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final AuthService _authService = AuthService();
   bool isobscureText = true;
-  final RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
   bool isLoading = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _login() async {
+    setState(() {
+      isLoading = true;
+    });
+    if (_emailController.text.trim().isEmpty ||
+        _passwordController.text.trim().isEmpty) {
+      showToast(message: "Please enter email and password");
+      setState(() => isLoading = false);
+      return;
+    }
+
+    final user = await _authService.login(
+      _emailController.text.trim(),
+      _passwordController.text.trim(),
+    );
+
+    if (user != null) {
+      await FirebaseAuth.instance.currentUser?.reload();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ),
+      );
+    }
+
+    setState(() => isLoading = false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header Image
-             Stack(
+            Stack(
               children: [
                 ClipRRect(
                   child: Image.asset(
@@ -39,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Positioned(
-                  top: 35.h,
+                  top: 60.h,
                   right: 20.w,
                   child: buildSignupButton(),
                 ),
@@ -49,40 +88,37 @@ class _LoginScreenState extends State<LoginScreen> {
             // Form Section
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 40.h),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    SizedBox(height: 15.h),
-                    Text(
-                      "Sign In To Continue",
-                      style: GoogleFonts.poppins(
-                        color: textColor,
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
+              child: Column(
+                children: [
+                  SizedBox(height: 15.h),
+                  Text(
+                    "Sign In To Continue",
+                    style: GoogleFonts.poppins(
+                      color: textColor,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w400,
                     ),
-                    SizedBox(height: 35.h),
-                    buildLabel("Email"),
-                    SizedBox(height: 5.h),
-                    buildEmailField(),
-                    SizedBox(height: 20.h),
-                    buildPasswordHeader(),
-                    SizedBox(height: 5.h),
-                    buildPasswordField(),
-                    SizedBox(height: 45.h),
-                    buildSignInButton(),
-                    SizedBox(height: 20.h),
-                    Text(
-                      "Terms and Conditions | Privacy Policy",
-                      style: GoogleFonts.poppins(
-                        color: textColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
+                  ),
+                  SizedBox(height: 35.h),
+                  buildLabel("Email"),
+                  SizedBox(height: 5.h),
+                  buildEmailField(),
+                  SizedBox(height: 20.h),
+                  buildPasswordHeader(),
+                  SizedBox(height: 5.h),
+                  buildPasswordField(),
+                  SizedBox(height: 45.h),
+                  buildSignInButton(),
+                  SizedBox(height: 20.h),
+                  Text(
+                    "Terms and Conditions | Privacy Policy",
+                    style: GoogleFonts.poppins(
+                      color: textColor,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -106,17 +142,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget buildEmailField() => TextFormField(
         style: GoogleFonts.poppins(color: textColor),
         cursorColor: blackColor,
-        controller: emailController,
+        controller: _emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: inputDecoration(),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Email cannot be empty";
-          } else if (!emailRegex.hasMatch(value)) {
-            return "Enter a valid email";
-          }
-          return null;
-        },
       );
 
   Widget buildPasswordHeader() => Row(
@@ -137,7 +165,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget buildPasswordField() => TextFormField(
         style: GoogleFonts.poppins(color: textColor),
         cursorColor: blackColor,
-        controller: passwordController,
+        keyboardType: TextInputType.visiblePassword,
+        controller: _passwordController,
         obscureText: isobscureText,
         obscuringCharacter: '*',
         decoration: inputDecoration().copyWith(
@@ -153,14 +182,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Password cannot be empty";
-          } else if (value.length < 8) {
-            return "Password must be at least 8 characters";
-          }
-          return null;
-        },
       );
 
   Widget buildSignInButton() => SizedBox(
@@ -174,18 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
               borderRadius: BorderRadius.circular(5.r),
             ),
           ),
-          onPressed: () async {
-            if (_formKey.currentState!.validate()) {
-              setState(() => isLoading = true);
-              await Future.delayed(Duration(seconds: 2));
-              setState(() => isLoading = false);
-              Navigator.push(
-                // ignore: use_build_context_synchronously
-                context,
-                MaterialPageRoute(builder: (_) => const HomeScreen()),
-              );
-            }
-          },
+          onPressed: _login,
           child: isLoading
               ? CircularProgressIndicator(color: whiteColor, strokeWidth: 2)
               : Text(
@@ -199,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
 
-       Widget buildSignupButton() => SizedBox(
+  Widget buildSignupButton() => SizedBox(
         height: 40.h,
         width: 122.w,
         child: ElevatedButton(
@@ -211,7 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           onPressed: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => SignupScreen()),
             );

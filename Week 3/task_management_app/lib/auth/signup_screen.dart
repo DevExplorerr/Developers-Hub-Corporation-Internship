@@ -1,11 +1,16 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:task_management_app/auth/auth_service.dart';
 import 'package:task_management_app/auth/login_screen.dart';
-import 'package:task_management_app/colors.dart';
-import 'package:task_management_app/home_screen.dart';
+import 'package:task_management_app/widgets/colors.dart';
+import 'package:task_management_app/screens/home_screen.dart';
+import '../global/toast.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -15,13 +20,44 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool isobscureText = true;
-  final RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
   bool isLoading = false;
+  final AuthService _authService = AuthService();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _register() async {
+    final username = _usernameController.text.trim();
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (username.isEmpty || email.isEmpty || password.isEmpty) {
+      showToast(message: "Please fill in all fields.");
+      return;
+    }
+
+    setState(() => isLoading = true);
+    final user = await _authService.signUp(username, email, password);
+
+    if (user != null) {
+      await FirebaseAuth.instance.currentUser?.reload();
+      showToast(message: "Registration successful!");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
+      );
+    }
+    setState(() => isLoading = false);
+  }
 
   String generateRandomPassword({int length = 8}) {
     const chars =
@@ -34,7 +70,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   void _generatePassword() {
     String newPassword = generateRandomPassword();
-    passwordController.text = newPassword;
+    _passwordController.text = newPassword;
   }
 
   @override
@@ -44,7 +80,6 @@ class _SignupScreenState extends State<SignupScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header Image
             Stack(
               children: [
                 ClipRRect(
@@ -56,7 +91,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 Positioned(
-                  top: 35.h,
+                  top: 60.h,
                   right: 20.w,
                   child: buildSigninButton(),
                 ),
@@ -66,50 +101,47 @@ class _SignupScreenState extends State<SignupScreen> {
             // Form Section
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 30.h),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    SizedBox(height: 10.h),
-                    Text(
-                      "New User? Get Started Now",
-                      style: GoogleFonts.poppins(
-                        color: textColor,
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
+              child: Column(
+                children: [
+                  SizedBox(height: 10.h),
+                  Text(
+                    "New User? Get Started Now",
+                    style: GoogleFonts.poppins(
+                      color: textColor,
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.w400,
                     ),
-                    SizedBox(height: 35.h),
-                    buildLabel("User Name"),
-                    SizedBox(height: 5.h),
-                    buildUserNameField(),
-                    SizedBox(height: 20.h),
-                    buildLabel("Email"),
-                    SizedBox(height: 5.h),
-                    buildEmailField(),
-                    SizedBox(height: 20.h),
-                    buildLabel("Password"),
-                    SizedBox(height: 5.h),
-                    buildPasswordField(),
-                    SizedBox(height: 45.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        buildSignupButton(),
-                        buildGeneratePasswordButton(),
-                      ],
+                  ),
+                  SizedBox(height: 35.h),
+                  buildLabel("User Name"),
+                  SizedBox(height: 5.h),
+                  buildUserNameField(),
+                  SizedBox(height: 20.h),
+                  buildLabel("Email"),
+                  SizedBox(height: 5.h),
+                  buildEmailField(),
+                  SizedBox(height: 20.h),
+                  buildLabel("Password"),
+                  SizedBox(height: 5.h),
+                  buildPasswordField(),
+                  SizedBox(height: 45.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      buildSignupButton(),
+                      buildGeneratePasswordButton(),
+                    ],
+                  ),
+                  SizedBox(height: 20.h),
+                  Text(
+                    "Terms and Conditions | Privacy Policy",
+                    style: GoogleFonts.poppins(
+                      color: textColor,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
                     ),
-                    SizedBox(height: 20.h),
-                    Text(
-                      "Terms and Conditions | Privacy Policy",
-                      style: GoogleFonts.poppins(
-                        color: textColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -133,37 +165,24 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget buildUserNameField() => TextFormField(
         style: GoogleFonts.poppins(color: textColor),
         cursorColor: blackColor,
-        controller: nameController,
+        controller: _usernameController,
         keyboardType: TextInputType.name,
         decoration: inputDecoration(),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "User name cannot be empty";
-          }
-          return null;
-        },
       );
 
   Widget buildEmailField() => TextFormField(
         style: GoogleFonts.poppins(color: textColor),
         cursorColor: blackColor,
-        controller: emailController,
+        controller: _emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: inputDecoration(),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Email cannot be empty";
-          } else if (!emailRegex.hasMatch(value)) {
-            return "Enter a valid email";
-          }
-          return null;
-        },
       );
 
   Widget buildPasswordField() => TextFormField(
         style: GoogleFonts.poppins(color: textColor),
         cursorColor: blackColor,
-        controller: passwordController,
+        controller: _passwordController,
+        keyboardType: TextInputType.visiblePassword,
         obscureText: isobscureText,
         obscuringCharacter: '*',
         decoration: inputDecoration().copyWith(
@@ -179,14 +198,6 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
           ),
         ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return "Password cannot be empty";
-          } else if (value.length < 8) {
-            return "Password must be at least 8 characters";
-          }
-          return null;
-        },
       );
 
   Widget buildSignupButton() => SizedBox(
@@ -200,18 +211,7 @@ class _SignupScreenState extends State<SignupScreen> {
               borderRadius: BorderRadius.circular(8.r),
             ),
           ),
-          onPressed: () async {
-            if (_formKey.currentState!.validate()) {
-              setState(() => isLoading = true);
-              await Future.delayed(Duration(seconds: 2));
-              setState(() => isLoading = false);
-              Navigator.push(
-                // ignore: use_build_context_synchronously
-                context,
-                MaterialPageRoute(builder: (_) => HomeScreen(userName: nameController.text,)),
-              );
-            }
-          },
+          onPressed: _register,
           child: isLoading
               ? CircularProgressIndicator(color: whiteColor, strokeWidth: 2)
               : Text(
@@ -237,7 +237,7 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
           ),
           onPressed: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => LoginScreen()),
             );
@@ -265,15 +265,13 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
           ),
           onPressed: () {
-            
-              _generatePassword();
-            
+            _generatePassword();
           },
           child: Text(
             "Generate",
             style: GoogleFonts.cambo(
               color: primaryButtonTextColor,
-              fontSize: 22.sp,
+              fontSize: 24.sp,
               fontWeight: FontWeight.w500,
             ),
           ),

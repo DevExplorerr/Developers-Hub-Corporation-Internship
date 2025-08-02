@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:task_management_app/colors.dart';
+import 'package:task_management_app/widgets/colors.dart';
 import 'custom_button.dart';
 
 class CustomSearchBar extends StatefulWidget {
@@ -28,7 +28,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
             onChanged: widget.onSearchChanged,
             decoration: InputDecoration(
               contentPadding:
-                  EdgeInsets.symmetric(vertical: 14.0.h, horizontal: 16.0.h),
+                  EdgeInsets.symmetric(vertical: 14.0.h, horizontal: 16.0.w),
               hintText: 'Search task',
               hintStyle: GoogleFonts.podkova(
                 color: inputHintTextColor,

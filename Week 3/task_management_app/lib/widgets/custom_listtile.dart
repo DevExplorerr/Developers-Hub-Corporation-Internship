@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../colors.dart';
+import 'colors.dart';
 
 class CustomListTile extends StatefulWidget {
   final String taskTitle;
@@ -43,13 +42,15 @@ class _CustomListTileState extends State<CustomListTile> {
                 elevation: 10,
                 backgroundColor: bgColor,
                 showDragHandle: true,
+                isScrollControlled: true,
                 context: context,
                 builder: (context) => _buildBottomSheet(context));
           },
           child: Text(
             widget.taskTitle,
             style: GoogleFonts.poppins(
-              color: widget.isCompleted ? listViewCompletedTextColor : textColor,
+              color:
+                  widget.isCompleted ? listViewCompletedTextColor : textColor,
               fontSize: 16.sp,
               fontWeight: FontWeight.w400,
               decoration: widget.isCompleted
@@ -94,84 +95,89 @@ class _CustomListTileState extends State<CustomListTile> {
     final TextEditingController controller =
         TextEditingController(text: widget.taskTitle);
 
-    return Container(
-      padding: EdgeInsets.all(20.w),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Edit Task",
-            style: GoogleFonts.poppins(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w600,
-              color: textColor,
-            ),
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(20.w),
+          decoration: BoxDecoration(
+            color: bgColor,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
           ),
-          SizedBox(height: 12.h),
-          TextField(
-            controller: controller,
-            maxLines: 2,
-            decoration: InputDecoration(
-              hintText: 'Edit your task...',
-              hintStyle: GoogleFonts.podkova(
-                color: inputHintTextColor,
-                fontSize: 17.sp,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: inputBorderColor),
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: blackColor),
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-            ),
-            style: GoogleFonts.podkova(color: textColor),
-          ),
-          SizedBox(height: 20.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextButton(
-                style: TextButton.styleFrom(
-                  overlayColor: blackColor,
+              Text(
+                "Edit Task",
+                style: GoogleFonts.poppins(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w600,
+                  color: textColor,
                 ),
-                onPressed: () => Navigator.pop(context),
-                child: Text("Cancel",
-                    style: GoogleFonts.poppins(color: textColor)),
               ),
-              SizedBox(width: 10.w),
-              ElevatedButton(
-                onPressed: () {
-                  if (controller.text.trim().isNotEmpty) {
-                    widget.onEdit(controller.text.trim());
-                    Navigator.pop(context);
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  overlayColor: bgColor,
-                  backgroundColor: primaryButtonColor,
-                  shape: RoundedRectangleBorder(
+              SizedBox(height: 12.h),
+              TextField(
+                controller: controller,
+                maxLines: 2,
+                decoration: InputDecoration(
+                  hintText: 'Edit your task...',
+                  hintStyle: GoogleFonts.podkova(
+                    color: inputHintTextColor,
+                    fontSize: 17.sp,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: inputBorderColor),
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: blackColor),
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                 ),
-                child: Text(
-                  "Save",
-                  style: GoogleFonts.inter(
-                    color: primaryButtonTextColor,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
+                style: GoogleFonts.podkova(color: textColor),
+              ),
+              SizedBox(height: 20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      overlayColor: blackColor,
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("Cancel",
+                        style: GoogleFonts.poppins(color: textColor)),
                   ),
-                ),
+                  SizedBox(width: 10.w),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (controller.text.trim().isNotEmpty) {
+                        widget.onEdit(controller.text.trim());
+                        Navigator.pop(context);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      overlayColor: bgColor,
+                      backgroundColor: primaryButtonColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                    ),
+                    child: Text(
+                      "Save",
+                      style: GoogleFonts.inter(
+                        color: primaryButtonTextColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }

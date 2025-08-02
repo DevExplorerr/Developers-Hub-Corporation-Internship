@@ -1,10 +1,11 @@
-// ignore_for_file: library_private_types_in_public_api
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:task_management_app/colors.dart';
-import 'auth/login_screen.dart';
+import 'package:task_management_app/screens/home_screen.dart';
+import 'package:task_management_app/widgets/colors.dart';
+import '../auth/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,12 +19,15 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 2), () async {
-      await Navigator.pushReplacement(
-        // ignore: use_build_context_synchronously
-        context,
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
-      );
+    Future.delayed(const Duration(seconds: 3), () {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()));
+      } else {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
+      }
     });
   }
 
@@ -41,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
             fit: BoxFit.fill,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.symmetric(vertical: 10.h),
             child: Column(
               children: [
                 Text(
@@ -53,12 +57,12 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 SizedBox(height: 25.h),
                 Image.asset(
-                  "assets/images/splash_logo.png",
+                  "assets/logo.png",
                   height: 220.h,
                   width: 239.w,
                 ),
                 SizedBox(height: 35.h),
-                CircularProgressIndicator(
+                const CircularProgressIndicator(
                   color: blackColor,
                 )
               ],
