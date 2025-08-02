@@ -11,7 +11,7 @@ This repo documents weekly Flutter development tasks, concepts, and projects tha
 |----------|---------------------------|------------------------------------------------------|
 | ✅ Week 1 | Simple Login UI           | A basic login screen with form validation            |
 | ✅ Week 2 | Tally Counter & Todo List | Counter and task manager apps with local storage     |
-| ⏳ Week 3 | _Coming Soon_             | _To be added..._                                     |
+| ✅ Week 3 | Task Management App       | Firebase-based task manager with per-user task sync  |
 
 ---
 
@@ -48,9 +48,25 @@ A task manager app that includes:
 
 ---
 
+## ✅ Week 3 - Task Management App (with Firebase)
+
+An advanced task manager that uses Firebase to sync tasks per user. Features include:
+
+- Firebase Authentication for login/signup  
+- Firestore integration to store user-specific tasks  
+- Tasks persist across devices (cloud sync using UID)  
+- Add, update, delete, and search tasks  
+- Real-time UI updates  
+- Responsive layout with `flutter_screenutil`  
+- Polished UI using `GoogleFonts`
+
+---
+
 ## Tech Stack
 
 - Flutter & Dart  
+- Firebase Authentication  
+- Cloud Firestore  
 - SharedPreferences  
 - flutter_screenutil  
 - google_fonts  
