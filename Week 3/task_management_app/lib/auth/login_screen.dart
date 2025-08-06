@@ -62,66 +62,69 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: bgColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                ClipRRect(
-                  child: Image.asset(
-                    'assets/images/header.png',
-                    width: double.infinity,
-                    height: 235.h,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  top: 60.h,
-                  right: 20.w,
-                  child: buildSignupButton(),
-                ),
-              ],
-            ),
-
-            // Form Section
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 40.h),
-              child: Column(
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        backgroundColor: bgColor,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
                 children: [
-                  SizedBox(height: 15.h),
-                  Text(
-                    "Sign In To Continue",
-                    style: GoogleFonts.poppins(
-                      color: textColor,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w400,
+                  ClipRRect(
+                    child: Image.asset(
+                      'assets/images/header.png',
+                      width: double.infinity,
+                      height: 265.h,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(height: 35.h),
-                  buildLabel("Email"),
-                  SizedBox(height: 5.h),
-                  buildEmailField(),
-                  SizedBox(height: 20.h),
-                  buildPasswordHeader(),
-                  SizedBox(height: 5.h),
-                  buildPasswordField(),
-                  SizedBox(height: 45.h),
-                  buildSignInButton(),
-                  SizedBox(height: 20.h),
-                  Text(
-                    "Terms and Conditions | Privacy Policy",
-                    style: GoogleFonts.poppins(
-                      color: textColor,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
+                  Positioned(
+                    top: 60.h,
+                    right: 20.w,
+                    child: buildSignupButton(),
                   ),
                 ],
               ),
-            ),
-          ],
+
+              // Form Section
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 40.h),
+                child: Column(
+                  children: [
+                    SizedBox(height: 15.h),
+                    Text(
+                      "Sign In To Continue",
+                      style: GoogleFonts.poppins(
+                        color: textColor,
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(height: 35.h),
+                    buildLabel("Email"),
+                    SizedBox(height: 5.h),
+                    buildEmailField(),
+                    SizedBox(height: 20.h),
+                    buildPasswordHeader(),
+                    SizedBox(height: 5.h),
+                    buildPasswordField(),
+                    SizedBox(height: 45.h),
+                    buildSignInButton(),
+                    SizedBox(height: 20.h),
+                    Text(
+                      "Terms and Conditions | Privacy Policy",
+                      style: GoogleFonts.poppins(
+                        color: textColor,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

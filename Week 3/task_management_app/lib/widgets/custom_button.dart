@@ -48,88 +48,91 @@ class _CustomButtonState extends State<CustomButton> {
   }
 
   Widget _buildDialogBox(BuildContext context, String taskTitle) {
-    return AlertDialog(
-      backgroundColor: bgColor,
-      title: Text(
-        'Add New Task',
-        style: GoogleFonts.raleway(
-          color: textColor,
-          fontSize: 20.sp,
-          fontWeight: FontWeight.w600,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: AlertDialog(
+        backgroundColor: bgColor,
+        title: Text(
+          'Add New Task',
+          style: GoogleFonts.raleway(
+            color: textColor,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-      ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Title",
-            style: GoogleFonts.raleway(
-              color: textColor,
-              fontWeight: FontWeight.w500,
-              fontSize: 14.sp,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Title",
+              style: GoogleFonts.raleway(
+                color: textColor,
+                fontWeight: FontWeight.w500,
+                fontSize: 14.sp,
+              ),
+            ),
+            SizedBox(height: 5.h),
+            TextField(
+              controller: titleController,
+              cursorColor: blackColor,
+              decoration: InputDecoration(
+                hintText: 'Add task here...',
+                hintStyle: GoogleFonts.podkova(
+                  color: inputHintTextColor,
+                  fontSize: 17.sp,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                  borderSide: BorderSide(color: inputBorderColor),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                  borderSide: BorderSide(color: blackColor),
+                ),
+              ),
+              style: GoogleFonts.podkova(color: textColor),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            style: TextButton.styleFrom(overlayColor: blackColor),
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(
+              'Cancel',
+              style: GoogleFonts.raleway(
+                color: textColor,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
-          SizedBox(height: 5.h),
-          TextField(
-            controller: titleController,
-            cursorColor: blackColor,
-            decoration: InputDecoration(
-              hintText: 'Add task here...',
-              hintStyle: GoogleFonts.podkova(
-                color: inputHintTextColor,
-                fontSize: 17.sp,
-              ),
-              enabledBorder: OutlineInputBorder(
+          ElevatedButton(
+            onPressed: () {
+              final taskTitle = titleController.text;
+              if (taskTitle.trim().isEmpty) return;
+              widget.onAddTask(taskTitle);
+              titleController.clear();
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+              overlayColor: bgColor,
+              backgroundColor: primaryButtonColor,
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.r),
-                borderSide: BorderSide(color: inputBorderColor),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.r),
-                borderSide: BorderSide(color: blackColor),
               ),
             ),
-            style: GoogleFonts.podkova(color: textColor),
+            child: Text(
+              'Add',
+              style: GoogleFonts.inter(
+                color: primaryButtonTextColor,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
         ],
       ),
-      actions: [
-        TextButton(
-          style: TextButton.styleFrom(overlayColor: blackColor),
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(
-            'Cancel',
-            style: GoogleFonts.raleway(
-              color: textColor,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            final taskTitle = titleController.text;
-            if (taskTitle.trim().isEmpty) return;
-            widget.onAddTask(taskTitle);
-            titleController.clear();
-            Navigator.of(context).pop();
-          },
-          style: ElevatedButton.styleFrom(
-            overlayColor: bgColor,
-            backgroundColor: primaryButtonColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-          ),
-          child: Text(
-            'Add',
-            style: GoogleFonts.inter(
-              color: primaryButtonTextColor,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

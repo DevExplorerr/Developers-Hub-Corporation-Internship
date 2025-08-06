@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final String uid = FirebaseAuth.instance.currentUser!.uid;
   List<Map<String, dynamic>> tasks = [];
   String _searchQuery = '';
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -40,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'isCompleted': doc['isCompleted'],
         };
       }).toList();
+      _isLoading = false;
     });
   }
 
@@ -135,20 +137,23 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: bgColor,
       body: ListView(
+        padding: EdgeInsets.symmetric(vertical: 35.h, horizontal: 20.w),
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 35.h, horizontal: 20.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomAppbar(
-                    onAddTask: addTask, onSearchChanged: updateSearchQuery),
-                SizedBox(height: 30.h),
-                SubHeading(
-                  ondeleteAll: deleteAllTasks,
-                  taskCount: tasks.length,
-                ),
-                SizedBox(height: 40.h),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 30.h),
+              CustomAppbar(
+                  onAddTask: addTask, onSearchChanged: updateSearchQuery),
+              SizedBox(height: 30.h),
+              SubHeading(
+                ondeleteAll: deleteAllTasks,
+                taskCount: tasks.length,
+              ),
+              SizedBox(height: 40.h),
+              if (_isLoading)
+                Center(child: CircularProgressIndicator(color: blackColor))
+              else ...[
                 ...tasks
                     .where((task) =>
                         task['title'].toLowerCase().contains(_searchQuery))
@@ -164,9 +169,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           onEdit: (updatedTitle) {
                             editTask(task['id'], updatedTitle);
                           },
-                        )),
-              ],
-            ),
+                        ))
+              ]
+            ],
           ),
         ],
       ),
