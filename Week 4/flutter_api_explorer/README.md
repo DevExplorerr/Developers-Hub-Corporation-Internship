@@ -26,6 +26,6 @@ A Flutter application built for **Internship Cycle 2 (Week 4)** – focused on *
    git clone https://github.com/yourusername/flutter_api_explorer.git
 
 ## Screenshots
-- ![Home Page](assets/home_screen.png)
-- ![Post Page](assets/post_page.png)
-- ![User Profile Page](assets/profile_page.png)
+![Home Page](assets/home_screen.png)
+![Post Page](assets/post_page.png)
+![User Profile Page](assets/profile_page.png)
