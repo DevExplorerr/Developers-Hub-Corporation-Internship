@@ -46,7 +46,6 @@ flutter pub get
 flutter run
 
 ## Screenshots
-![Login Screen](assets/l.png)
 ![Login Screen](assets/login_screen.png)
 ![Signup Screen](assets/signup_screen.png)
 ![Profile Screen](assets/profile_screen.png)
