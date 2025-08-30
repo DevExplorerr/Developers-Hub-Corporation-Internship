@@ -85,4 +85,4 @@ app.*.map.json
 *.log
 
 # Firebase (IMPORTANT - prevent secret leaks)
-firebase_options.dart
+lib/firebase_options.dart
