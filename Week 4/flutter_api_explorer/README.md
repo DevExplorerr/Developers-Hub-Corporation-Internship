@@ -2,7 +2,7 @@
 
 A Flutter application built for **Internship Cycle 2 (Week 4)** – focused on **API Integration & Networking**.
 
-## 🚀 Features
+## Features
 - Fetch & parse JSON from REST API (DummyJSON Users & Posts)
 - Home navigation to Posts & User Profile
 - Posts Page:
@@ -14,16 +14,11 @@ A Flutter application built for **Internship Cycle 2 (Week 4)** – focused on *
   - Display name, email, company, and profile picture
 - Error handling & loading indicators
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Flutter**
 - **Dart**
 - **http package**
 - **DummyJSON API**
-
-## 📲 How to Run
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/yourusername/flutter_api_explorer.git
 
 ## Screenshots
 ![Home Page](assets/home_screen.png)
