@@ -33,7 +33,6 @@ migrate_working_dir/
 
 # Generated plugin registrants
 lib/generated_plugin_registrant.dart
-lib/firebase_options.dart
 
 # Symbolication
 app.*.symbols
@@ -84,3 +83,6 @@ app.*.map.json
 
 # Logs
 *.log
+
+# Firebase (IMPORTANT - prevent secret leaks)
+firebase_options.dart
