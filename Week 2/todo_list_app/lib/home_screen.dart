@@ -1,11 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_list_app/colors.dart';
+import 'package:todo_list_app/provider/task_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,56 +15,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final titleController = TextEditingController();
-  List<Map<String, dynamic>> tasks = [];
-  late SharedPreferences prefs;
-
-  @override
-  void initState() {
-    super.initState();
-    loadTasks();
-  }
-
-  // Load tasks from SharedPreferences
-  Future<void> loadTasks() async {
-    prefs = await SharedPreferences.getInstance();
-    final savedTasks = prefs.getStringList('tasks');
-    if (savedTasks != null) {
-      tasks = savedTasks
-          .map<Map<String, dynamic>>((taskStr) => jsonDecode(taskStr))
-          .toList();
-      setState(() {});
-    }
-  }
-
-  // Add new task
-  void addTask() {
-    final title = titleController.text.trim();
-    if (title.isNotEmpty) {
-      final time = _formattedTime();
-      setState(() {
-        tasks.add({'title': title, 'time': time, 'isCompleted': false});
-      });
-      titleController.clear();
-      _saveTasks();
-    }
-  }
-
-  // Save tasks to SharedPreferences
-  void _saveTasks() {
-    prefs.setStringList('tasks', tasks.map((e) => jsonEncode(e)).toList());
-  }
 
   String _formattedDate() => DateFormat('yMMMMd').format(DateTime.now());
   String _formattedTime() => DateFormat.jm().format(DateTime.now());
 
   @override
-  void dispose() {
-    titleController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final taskProvider = Provider.of<TaskProvider>(context);
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
@@ -114,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SizedBox(height: 30.h),
-          tasks.isEmpty
+          taskProvider.task.isEmpty
               ? Center(
                   child: Text(
                     'No tasks added yet!',
@@ -126,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 )
               : Column(
-                  children: tasks.asMap().entries.map((entry) {
+                  children: taskProvider.task.asMap().entries.map((entry) {
                     final index = entry.key;
                     return Padding(
                       padding: EdgeInsets.only(bottom: 13.h),
@@ -160,6 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget dialogBox(BuildContext context) {
+    final taskProvider = Provider.of<TaskProvider>(context, listen: false);
     return AlertDialog(
       backgroundColor: greenColor,
       title: Text(
@@ -213,7 +170,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         ElevatedButton(
           onPressed: () {
-            addTask();
+            taskProvider.addTask(titleController.text.trim(), _formattedTime());
+            titleController.clear();
             Navigator.of(context).pop();
           },
           style: ElevatedButton.styleFrom(
@@ -233,7 +191,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildTaskList(BuildContext context, int index) {
-    final task = tasks[index];
+    final taskProvider = Provider.of<TaskProvider>(context);
+    final tasks = taskProvider.task[index];
 
     return ListTile(
       tileColor: listViewColor,
@@ -243,32 +202,29 @@ class _HomeScreenState extends State<HomeScreen> {
       minTileHeight: 60,
       leading: IconButton(
         onPressed: () {
-          setState(() {
-            task['isCompleted'] = !task['isCompleted'];
-            _saveTasks();
-          });
+          taskProvider.toggleTask(index);
         },
         icon: Icon(
-          task['isCompleted']
+          tasks['isCompleted']
               ? Icons.check_circle
               : Icons.radio_button_unchecked,
-          color: task['isCompleted'] ? greyColor : whiteColor,
+          color: tasks['isCompleted'] ? greyColor : whiteColor,
           size: 25.sp,
         ),
       ),
       title: Text(
-        task['title'],
+        tasks['title'],
         style: GoogleFonts.raleway(
-          color: task['isCompleted'] ? greyColor : whiteColor,
+          color: tasks['isCompleted'] ? greyColor : whiteColor,
           fontSize: 18.sp,
           fontWeight: FontWeight.w400,
-          decoration: task['isCompleted'] ? TextDecoration.lineThrough : null,
+          decoration: tasks['isCompleted'] ? TextDecoration.lineThrough : null,
         ),
       ),
       trailing: Text(
-        task['time'],
+        tasks['time'],
         style: GoogleFonts.raleway(
-          color: task['isCompleted'] ? greyColor : whiteColor,
+          color: tasks['isCompleted'] ? greyColor : whiteColor,
           fontSize: 12.sp,
           fontWeight: FontWeight.w400,
         ),
