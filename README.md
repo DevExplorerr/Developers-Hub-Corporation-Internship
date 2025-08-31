@@ -13,6 +13,7 @@ This repo documents weekly Flutter development tasks, concepts, and projects tha
 | ✅ Week 2 | Tally Counter & Todo List      | Counter and task manager apps with local storage     |
 | ✅ Week 3 | Task Management App (Firebase) | Firebase-based task manager with per-user task sync  |
 | ✅ Week 4 | API Integration & Networking   | Fetching posts & user profiles from REST API         |
+| ✅ Week 5 | AuthConnect (Firebase Auth)    | Firebase Authentication + Firestore user management  |
 
 ---
 
@@ -56,7 +57,7 @@ An advanced task manager that uses Firebase to sync tasks per user. Features inc
 - Firebase Authentication for login/signup  
 - Firestore integration to store user-specific tasks  
 - Tasks persist across devices (cloud sync using UID)  
-- Add, update, delete, reorder, and search tasks  
+- Add, update, delete, and search tasks  
 - Real-time UI updates  
 - Responsive layout with `flutter_screenutil`  
 - Polished UI using `GoogleFonts`
@@ -76,12 +77,30 @@ Features:
 - Profile screen with user info & avatar  
 - Error handling & loading indicators 
 
+---
+
+## ✅ Week 5 - AuthConnect (Firebase Authentication + Firestore)
+
+A Flutter app demonstrating **Firebase Authentication** and **Cloud Firestore integration**.  
+
+### 🔑 Features
+- Firebase Email/Password Authentication  
+- Signup with Name, Email, Password  
+- User details stored in **Cloud Firestore**  
+- Profile screen displaying saved data  
+- Update username feature  
+- Reset password functionality  
+- Delete account option  
+- Clean project structure (services, screens, widgets)  
+
+---
+
 **Demo Video:**  
 [Google Drive - Task Management App Demo](https://drive.google.com/drive/folders/1EbGtf98xY0Rfiol3x5hXX041K6H6ODle?usp=sharing) 
 
 ---
 
-## 🛠 Tech Stack
+## 🛠 Tech Stack (Overall)
 
 - **Flutter & Dart**  
 - **Firebase Authentication**  
