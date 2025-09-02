@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: 'Enter your email',
                     labelText: 'Email',
                     keyboardType: TextInputType.emailAddress,
-                    prefixIcon: Icon(Icons.email, color: secondaryColor),
+                    prefixIcon: const Icon(Icons.email, color: secondaryColor),
                     controller: emailController,
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.03),

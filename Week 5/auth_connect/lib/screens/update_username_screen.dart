@@ -76,7 +76,7 @@ class _UpdateUsernameScreenState extends State<UpdateUsernameScreen>
           elevation: 0,
           leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: Icon(Icons.arrow_back, color: blackColor),
+            icon: const Icon(Icons.arrow_back, color: blackColor),
           ),
         ),
         body: SafeArea(
@@ -88,7 +88,7 @@ class _UpdateUsernameScreenState extends State<UpdateUsernameScreen>
                   const SizedBox(height: 25),
                   FadeTransition(
                     opacity: _fadeAnimation,
-                    child: Icon(
+                    child: const Icon(
                       Icons.text_fields,
                       size: 80,
                       color: primaryColor,
@@ -109,7 +109,10 @@ class _UpdateUsernameScreenState extends State<UpdateUsernameScreen>
                     labelText: "User Name",
                     controller: userNameController,
                     keyboardType: TextInputType.name,
-                    prefixIcon: Icon(Icons.text_fields, color: secondaryColor),
+                    prefixIcon: const Icon(
+                      Icons.text_fields,
+                      color: secondaryColor,
+                    ),
                   ),
                   const SizedBox(height: 35),
                   CustomButton(

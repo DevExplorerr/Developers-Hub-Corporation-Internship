@@ -81,7 +81,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
           elevation: 0,
           leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: Icon(Icons.arrow_back, color: blackColor),
+            icon: const Icon(Icons.arrow_back, color: blackColor),
           ),
         ),
         body: SafeArea(
@@ -93,7 +93,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
                   const SizedBox(height: 25),
                   FadeTransition(
                     opacity: _fadeAnimation,
-                    child: Icon(Icons.lock, size: 80, color: primaryColor),
+                    child: const Icon(
+                      Icons.lock,
+                      size: 80,
+                      color: primaryColor,
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Text(
@@ -110,7 +114,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen>
                     labelText: "Enter your email",
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
-                    prefixIcon: Icon(Icons.email, color: secondaryColor),
+                    prefixIcon: const Icon(Icons.email, color: secondaryColor),
                   ),
                   const SizedBox(height: 25),
                   CustomTextfield(

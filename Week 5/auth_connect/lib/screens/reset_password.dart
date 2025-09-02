@@ -44,8 +44,8 @@ class _ResetPasswordState extends State<ResetPassword>
       setState(() {
         errorMessage = '';
       });
-      Future.delayed(const Duration(seconds: 1), () {
-        Navigator.pushReplacement(
+      Future.delayed(const Duration(seconds: 1), () async {
+        await Navigator.pushReplacement(
           // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (_) => const LoginScreen()),
@@ -76,7 +76,7 @@ class _ResetPasswordState extends State<ResetPassword>
           elevation: 0,
           leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: Icon(Icons.arrow_back, color: blackColor),
+            icon: const Icon(Icons.arrow_back, color: blackColor),
           ),
         ),
         body: SafeArea(
