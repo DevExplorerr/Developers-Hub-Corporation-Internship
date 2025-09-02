@@ -21,6 +21,7 @@ class AuthService {
     );
   }
 
+  // Signup
   Future<UserCredential> signUp({
     required String email,
     required String password,
@@ -41,38 +42,27 @@ class AuthService {
     return userCredential;
   }
 
-  // // Registration & Save to firestore
-  // Future<UserCredential> signUp({
-  //   required String email,
-  //   required String password,
-  // }) async {
-  //   return await _firebaseAuth.createUserWithEmailAndPassword(
-  //     email: email,
-  //     password: password,
-  //   );
-  // }
-
-  //Reset Password with Email
+  // Reset Password with Email
   Future<void> resetPassword({required String email}) async {
     await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
-  //Update Username
+  // Update Username
   Future<void> updateUsername({required String userName}) async {
     await currentUser!.updateDisplayName(userName);
 
-    //update firestore
+    // update firestore
     await _firestore.collection("users").doc(currentUser!.uid).update({
       "name": userName,
     });
   }
 
-  //Signout
+  // Signout
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
 
-  //Delete Account
+  // Delete Account
   Future<void> deleteAccount({
     required String email,
     required String password,
@@ -83,10 +73,10 @@ class AuthService {
     );
     await currentUser!.reauthenticateWithCredential(credential);
 
-    //Delete from firestore
+    // Delete from firestore
     await _firestore.collection("users").doc(currentUser!.uid).delete();
 
-    //Delete from Firebase Auth
+    // Delete from Firebase Auth
     await currentUser!.delete();
     await _firebaseAuth.signOut();
   }
