@@ -1,9 +1,6 @@
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:task_management_app/screens/home_screen.dart';
 import 'package:task_management_app/widgets/colors.dart';
 import 'login_screen.dart';
 
@@ -19,15 +16,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 3), () {
-      final user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()));
-      } else {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()));
-      }
+    Future.delayed(const Duration(seconds: 2), () async {
+      await Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
     });
   }
 
@@ -57,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 SizedBox(height: 25.h),
                 Image.asset(
-                  "assets/logo.png",
+                  "assets/app_logo.png",
                   height: 220.h,
                   width: 239.w,
                 ),

@@ -1,21 +1,51 @@
-# Task Management App
+# Task Management App  
 
-A simple and clean Flutter app to manage your daily tasks with Firebase integration.
+A simple and clean **Task Management App** with **Firebase + Firestore + Provider integration**.  
+Manage your daily tasks with real-time updates, seamless state management and secure account management.   
 
-## Features
-- User Authentication (Firebase)
-- Add, Edit, Delete & Search Tasks
-- Mark tasks as Complete or Incomplete
-- Tasks saved per user (sync across devices)
-- Responsive UI (uses `flutter_screenutil`)
-- Custom fonts and themed UI
+---
 
-## Tech Stack
-- Flutter
-- Firebase Auth & Firestore
-- Google Fonts
+## Features  
+- **User Authentication** (Firebase Email/Password)  
+- **Task Management**  
+  - Add, Edit, Delete & Search Tasks  
+  - Mark as Complete or Incomplete  
+  - Tasks update in **real time** with Provider  
+- **Account Management**  
+  - Update Username  
+  - Update Password  
+  - Forgot Password (via email)  
+  - Delete Account  
+- **Cloud Sync**  
+  - Tasks saved per user in Firestore (using UID)  
+  - Automatically syncs across devices  
+- **State Management with Provider**  
+  - Centralized task handling (add, update, delete)  
+  - UI automatically rebuilds on state changes  
+- **Responsive UI**  
+  - Built with `flutter_screenutil` for adaptability  
+  - Custom fonts with Google Fonts  
+- **UI/UX Enhancements**  
+  - Smooth animations for dialogs & transitions  
+  - Themed colors and reusable widgets  
+- **Optimized Performance**  
+  - Avoids unnecessary rebuilds  
+  - Uses `Consumer` and `Selector` for efficiency  
 
-## Preview
-![Task Management App](assets/splash.PNG)
-![Task Management App](assets/signup.PNG)
-![Task Management App](assets/task_management.PNG)
+---
+
+## Tech Stack  
+- **Framework:** Flutter  
+- **State Management:** Provider  
+- **Backend:** Firebase Authentication, Cloud Firestore  
+- **UI:** Flutter ScreenUtil, Google Fonts  
+
+---
+
+## App Preview  
+
+![Splash](assets/splash_screen.png)
+![Signup](assets/signup_screen.png)
+![Login](assets/login_screen.png)
+![Task Management](assets/home_screen.png)
+![Drawer](assets/drawer.png)

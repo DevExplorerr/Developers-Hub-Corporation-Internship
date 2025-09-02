@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:task_management_app/widgets/add_task_button.dart';
 import 'package:task_management_app/widgets/colors.dart';
-import 'custom_button.dart';
 
-class CustomSearchBar extends StatefulWidget {
+class TaskSearchBar extends StatefulWidget {
   final Function(String) onAddTask;
   final Function(String) onSearchChanged;
-  const CustomSearchBar(
+  const TaskSearchBar(
       {super.key, required this.onAddTask, required this.onSearchChanged});
 
   @override
-  State<CustomSearchBar> createState() => _CustomSearchBarState();
+  State<TaskSearchBar> createState() => _TaskSearchBarState();
 }
 
-class _CustomSearchBarState extends State<CustomSearchBar> {
-  TextEditingController searchController = TextEditingController();
+class _TaskSearchBarState extends State<TaskSearchBar> {
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                 color: inputHintTextColor,
                 fontSize: 17.sp,
               ),
-              suffixIcon: Icon(Icons.search, color: inputIconColor),
+              suffixIcon: const Icon(Icons.search, color: inputIconColor),
               filled: true,
               fillColor: bgColor,
               enabledBorder: OutlineInputBorder(
@@ -50,7 +50,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
           ),
         ),
         SizedBox(width: 12.w),
-        CustomButton(
+        AddTaskButton(
           onAddTask: widget.onAddTask,
         ),
       ],

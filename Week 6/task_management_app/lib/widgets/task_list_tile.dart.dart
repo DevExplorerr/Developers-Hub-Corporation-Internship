@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:task_management_app/widgets/custom_button.dart';
+import 'package:task_management_app/widgets/custom_textfield.dart';
 import 'colors.dart';
 
-class CustomListTile extends StatefulWidget {
+class TaskListTile extends StatefulWidget {
   final String taskTitle;
   final VoidCallback onDelete;
   final ValueChanged<String> onEdit;
   final bool isCompleted;
   final ValueChanged<bool> onStatusToggle;
-  const CustomListTile(
+  const TaskListTile(
       {super.key,
       required this.taskTitle,
       required this.onDelete,
@@ -18,12 +20,10 @@ class CustomListTile extends StatefulWidget {
       required this.onStatusToggle});
 
   @override
-  State<CustomListTile> createState() => _CustomListTileState();
+  State<TaskListTile> createState() => _TaskListTileState();
 }
 
-class _CustomListTileState extends State<CustomListTile> {
-  bool isCompleted = false;
-
+class _TaskListTileState extends State<TaskListTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -62,7 +62,6 @@ class _CustomListTileState extends State<CustomListTile> {
           ),
         ),
         leading: IconButton(
-          style: IconButton.styleFrom(overlayColor: blackColor),
           onPressed: () {
             setState(() {
               widget.onStatusToggle(!widget.isCompleted);
@@ -79,12 +78,11 @@ class _CustomListTileState extends State<CustomListTile> {
           ),
         ),
         trailing: IconButton(
-          style: IconButton.styleFrom(overlayColor: blackColor),
           onPressed: widget.onDelete,
-          icon: Icon(
+          icon: const Icon(
             Icons.close_sharp,
             color: listViewDeleteIconColor,
-            size: 28.sp,
+            size: 28,
           ),
         ),
       ),
@@ -110,70 +108,35 @@ class _CustomListTileState extends State<CustomListTile> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Edit Task",
-                  style: GoogleFonts.poppins(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
-                    color: textColor,
-                  ),
-                ),
                 SizedBox(height: 12.h),
-                TextField(
+                CustomTextfield(
+                  hintText: "Edit your task...",
                   controller: controller,
+                  text: "Edit Task",
                   maxLines: 2,
-                  decoration: InputDecoration(
-                    hintText: 'Edit your task...',
-                    hintStyle: GoogleFonts.podkova(
-                      color: inputHintTextColor,
-                      fontSize: 17.sp,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: inputBorderColor),
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: blackColor),
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                  ),
-                  style: GoogleFonts.podkova(color: textColor),
+                  keyboardType: TextInputType.multiline,
                 ),
                 SizedBox(height: 20.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      style: TextButton.styleFrom(
-                        overlayColor: blackColor,
-                      ),
                       onPressed: () => Navigator.pop(context),
                       child: Text("Cancel",
                           style: GoogleFonts.poppins(color: textColor)),
                     ),
                     SizedBox(width: 10.w),
-                    ElevatedButton(
+                    CustomButton(
+                      buttonColor: primaryButtonColor,
+                      buttonText: "Save",
+                      buttonTextColor: primaryButtonTextColor,
+                      fontSize: 14.sp,
                       onPressed: () {
                         if (controller.text.trim().isNotEmpty) {
                           widget.onEdit(controller.text.trim());
                           Navigator.pop(context);
                         }
                       },
-                      style: ElevatedButton.styleFrom(
-                        overlayColor: bgColor,
-                        backgroundColor: primaryButtonColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.r),
-                        ),
-                      ),
-                      child: Text(
-                        "Save",
-                        style: GoogleFonts.inter(
-                          color: primaryButtonTextColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
                     ),
                   ],
                 ),
