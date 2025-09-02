@@ -29,8 +29,7 @@ Manage your daily tasks with real-time updates, seamless state management and se
   - Smooth animations for dialogs & transitions  
   - Themed colors and reusable widgets  
 - **Optimized Performance**  
-  - Avoids unnecessary rebuilds  
-  - Uses `Consumer` and `Selector` for efficiency  
+  - Avoids unnecessary rebuilds
 
 ---
 
