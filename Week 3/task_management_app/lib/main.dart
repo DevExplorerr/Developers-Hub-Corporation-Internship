@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
               selectionColor: Colors.grey.withOpacity(0.5),
               selectionHandleColor: Colors.black),
         ),
-        home: SplashScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

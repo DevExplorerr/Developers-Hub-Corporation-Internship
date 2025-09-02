@@ -200,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           onPressed: _login,
           child: isLoading
-              ? CircularProgressIndicator(color: whiteColor, strokeWidth: 2)
+              ? const CircularProgressIndicator(color: whiteColor, strokeWidth: 2)
               : Text(
                   "SIGN IN",
                   style: GoogleFonts.cambo(
@@ -226,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => SignupScreen()),
+              MaterialPageRoute(builder: (context) => const SignupScreen()),
             );
           },
           child: Text(

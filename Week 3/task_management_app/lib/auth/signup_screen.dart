@@ -216,7 +216,8 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
           onPressed: _register,
           child: isLoading
-              ? CircularProgressIndicator(color: whiteColor, strokeWidth: 2)
+              ? const CircularProgressIndicator(
+                  color: whiteColor, strokeWidth: 2)
               : Text(
                   "SIGN UP",
                   style: GoogleFonts.cambo(
@@ -242,7 +243,7 @@ class _SignupScreenState extends State<SignupScreen> {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
+              MaterialPageRoute(builder: (context) => const LoginScreen()),
             );
           },
           child: Text(
@@ -284,19 +285,19 @@ class _SignupScreenState extends State<SignupScreen> {
   InputDecoration inputDecoration() => InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: inputBorderColor),
+          borderSide: const BorderSide(color: inputBorderColor),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: blackColor),
+          borderSide: const BorderSide(color: blackColor),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: const BorderSide(color: Colors.red),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: const BorderSide(color: Colors.red),
         ),
       );
 }

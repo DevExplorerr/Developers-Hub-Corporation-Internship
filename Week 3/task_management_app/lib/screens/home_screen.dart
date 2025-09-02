@@ -152,7 +152,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               SizedBox(height: 40.h),
               if (_isLoading)
-                Center(child: CircularProgressIndicator(color: blackColor))
+                Center(
+                    child: const CircularProgressIndicator(color: blackColor))
               else ...[
                 ...tasks
                     .where((task) =>
