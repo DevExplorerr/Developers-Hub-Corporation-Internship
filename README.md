@@ -7,17 +7,18 @@ This repo documents weekly Flutter development tasks, concepts, and projects tha
 
 ## 📅 Weekly Progress
 
-| Week     | Topic                          | Description                                          |
-|----------|--------------------------------|------------------------------------------------------|
-| ✅ Week 1 | Simple Login UI                | A basic login screen with form validation            |
-| ✅ Week 2 | Tally Counter & Todo List      | Counter and task manager apps with local storage     |
-| ✅ Week 3 | Task Management App (Firebase) | Firebase-based task manager with per-user task sync  |
-| ✅ Week 4 | API Integration & Networking   | Fetching posts & user profiles from REST API         |
-| ✅ Week 5 | AuthConnect (Firebase Auth)    | Firebase Authentication + Firestore user management  |
+| Week   | Topic                          | Description                                          |
+|--------|--------------------------------|------------------------------------------------------|
+| Week 1 | Simple Login UI                | A basic login screen with form validation            |
+| Week 2 | Tally Counter & Todo List      | Counter and task manager apps with local storage     |
+| Week 3 | Task Management App (Firebase) | Firebase-based task manager with per-user task sync  |
+| Week 4 | API Integration & Networking   | Fetching posts & user profiles from REST API         |
+| Week 5 | AuthConnect (Firebase Auth)    | Firebase Authentication + Firestore user management  |
+| Week 6 | Task Management (Provider)     | State management with Provider + app performance     |
 
 ---
 
-## ✅ Week 1 - Simple Login UI
+## Week 1 - Simple Login UI
 
 A basic Flutter app that implements a simple login screen with:
 
@@ -27,30 +28,27 @@ A basic Flutter app that implements a simple login screen with:
 
 ---
 
-## ✅ Week 2 - Tally Counter App
+## Week 2 - Tally Counter App
 
 A digital counter app demonstrating:
 
 - `setState()` for state updates  
 - Persistent storage using `SharedPreferences`  
-- Responsive layout with `flutter_screenutil`  
 - Digital-style font for counter display  
 
 ---
 
-## ✅ Week 2 - Todo List App
+## Week 2 - Todo List App
 
 A task manager app that includes:
 
 - Add, complete, and view tasks  
 - Saves tasks using `SharedPreferences`  
 - Each task shows a timestamp  
-- Responsive layout with `flutter_screenutil`  
-- Clean design using `GoogleFonts`  
 
 ---
 
-## ✅ Week 3 - Task Management App (with Firebase)
+## Week 3 - Task Management App (with Firebase)
 
 An advanced task manager that uses Firebase to sync tasks per user. Features include:
 
@@ -59,12 +57,10 @@ An advanced task manager that uses Firebase to sync tasks per user. Features inc
 - Tasks persist across devices (cloud sync using UID)  
 - Add, update, delete, and search tasks  
 - Real-time UI updates  
-- Responsive layout with `flutter_screenutil`  
-- Polished UI using `GoogleFonts`
 
 ---
 
-## ✅ Week 4 - API Integration & Networking
+## Week 4 - API Integration & Networking
 
 A Flutter app demonstrating **API calls, parsing JSON, and displaying data**.  
 
@@ -79,11 +75,11 @@ Features:
 
 ---
 
-## ✅ Week 5 - AuthConnect (Firebase Authentication + Firestore)
+## Week 5 - AuthConnect (Firebase Authentication + Firestore)
 
 A Flutter app demonstrating **Firebase Authentication** and **Cloud Firestore integration**.  
 
-### 🔑 Features
+### Features
 - Firebase Email/Password Authentication  
 - Signup with Name, Email, Password  
 - User details stored in **Cloud Firestore**  
@@ -95,16 +91,29 @@ A Flutter app demonstrating **Firebase Authentication** and **Cloud Firestore in
 
 ---
 
-**Demo Video:**  
-[Google Drive - Task Management App Demo](https://drive.google.com/drive/folders/1EbGtf98xY0Rfiol3x5hXX041K6H6ODle?usp=sharing) 
+## Week 6 - Provider & App Optimization
+
+A **refined Task Management App** updated with **Provider for state management** and performance optimization.  
+
+### Features
+- Implemented **Provider** for task handling (add, update, delete)  
+- Real-time UI updates with `ChangeNotifier`  
+- Optimized widget rebuilds for better performance  
+- Added basic UI/UX animations for smoother interactions   
 
 ---
 
-## 🛠 Tech Stack (Overall)
+**Demo Video:**  
+[Google Drive](https://drive.google.com/drive/folders/1EbGtf98xY0Rfiol3x5hXX041K6H6ODle?usp=sharing) 
+
+---
+
+## Tech Stack (Overall)
 
 - **Flutter & Dart**  
 - **Firebase Authentication**  
 - **Cloud Firestore**  
+- **Provider (state management)**  
 - **SharedPreferences**  
 - **http package**  
 - **flutter_screenutil**  
@@ -113,15 +122,7 @@ A Flutter app demonstrating **Firebase Authentication** and **Cloud Firestore in
 
 ---
 
-## 📝 Notes
-
-- Each week's project is modular and easy to understand  
-- Focus on **UI/UX, Flutter fundamentals, clean code, and Firebase/REST APIs**  
-- Documenting weekly progress during the internship  
-
----
-
-## 🌐 Connect
+## Connect
 
 Follow my Flutter journey or suggest improvements:  
 - GitHub: [DevExplorerr](https://github.com/DevExplorerr)  
