@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
+          scrolledUnderElevation: 0,
           backgroundColor: bgColor,
           automaticallyImplyLeading: false,
           toolbarHeight: 100.h,

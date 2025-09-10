@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: "Task Management",
         debugShowCheckedModeBanner: false,
-        
         theme: ThemeData(
             textSelectionTheme: TextSelectionThemeData(
                 cursorColor: blackColor,
